@@ -1,0 +1,15 @@
+journalbeat.inputs:
+  - paths: []
+    # Position to start reading from journal. Valid values: head, tail, cursor
+    seek: cursor
+  setup.template.settings:
+    index.number_of_shards: 1
+output.elasticsearch:
+    hosts: ["localhost:9200"]
+    username: "elastic"
+    password: "changeme"
+  
+  processors:
+    - add_host_metadata: ~
+    - add_cloud_metadata: ~
+    - add_docker_metadata: ~

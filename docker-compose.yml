@@ -68,6 +68,21 @@ services:
     depends_on:
       - elasticsearch
 
+  journalbeat:
+    build:
+      context: journalbeat/
+      args:
+        ELK_VERSION: $ELK_VERSION
+    volumes:
+      - type: bind
+        source: ./journalbeat/config/journalbeat.yml
+        target: /etc/journalbeat/kibana.yml
+        read_only: true
+    networks:
+      - elk
+    depends_on:
+      - elasticsearch
+    
 networks:
   elk:
     driver: bridge
